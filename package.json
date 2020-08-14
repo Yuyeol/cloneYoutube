@@ -1,0 +1,19 @@
+{
+  "name": "cloneyoutube",
+  "version": "1.0.0",
+  "description": "cloning Youtube",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yuyeol/cloneYoutube.git"
+  },
+  "author": "URE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yuyeol/cloneYoutube/issues"
+  },
+  "homepage": "https://github.com/Yuyeol/cloneYoutube#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

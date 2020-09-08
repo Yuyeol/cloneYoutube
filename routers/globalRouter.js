@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 import routes from "../routes";
 import { home, search } from "../controllers/videoController";
 import {
@@ -7,18 +8,33 @@ import {
   postJoin,
   getLogin,
   postLogin,
+  githubLogin,
+  postGithubLogIn,
+  getMe,
+  facebookLogin,
+  postFacebookLogin,
 } from "../controllers/userController";
+import { onlyPublic, onlyPrivate } from "../middlewares";
 
 const globalRouter = express.Router();
 
-globalRouter.get(routes.login, getLogin);
-globalRouter.post(routes.login, postLogin);
+globalRouter.get(routes.join, onlyPublic, getJoin);
+globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
 
-globalRouter.get(routes.join, getJoin);
-globalRouter.post(routes.join, postJoin);
+globalRouter.get(routes.login, onlyPublic, getLogin);
+globalRouter.post(routes.login, onlyPublic, postLogin);
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
-globalRouter.get(routes.logout, logout);
+globalRouter.get(routes.logout, onlyPrivate, logout);
+
+globalRouter.get(routes.gitHub, githubLogin);
+globalRouter.get(
+  routes.githubCallback,
+  //하면서 githubStrategy의 githubLoginCallback도 같이 실행함
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  postGithubLogIn
+);
+globalRouter.get(routes.me, getMe);
 
 export default globalRouter;
